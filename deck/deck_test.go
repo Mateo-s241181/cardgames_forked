@@ -71,6 +71,7 @@ func ExampleDeck_Shuffle() {
 	d.Shuffle()
 
 	fmt.Println(d)
+	fmt.Println(len(d.Cards))
 
 	// Output:
 	// foo
