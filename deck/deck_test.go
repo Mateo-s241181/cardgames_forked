@@ -64,3 +64,14 @@ func ExampleDeck_Add() {
 	// │      7│
 	// └───────┘
 }
+
+func ExampleDeck_Shuffle() {
+	d := NewDeck32()
+
+	d.Shuffle()
+
+	fmt.Println(d)
+
+	// Output:
+	// foo
+}
