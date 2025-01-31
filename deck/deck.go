@@ -1,6 +1,9 @@
 package deck
 
-import "cardgames/card"
+import (
+	"cardgames/card"
+	"math/rand"
+)
 
 // Ein Kartenstapel ist eine Liste von Karten.
 type Deck struct {
@@ -50,29 +53,32 @@ func NewDeck32() Deck {
 
 // Mischt das Deck.
 func (d *Deck) Shuffle() {
-	// TODO
+	rand.Shuffle(len(d.Cards), func(i, j int) {
+		d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
+	})
 }
 
 // Zieht eine Karte vom Deck.
 // D.h. entfernt die oberste Karte und gibt sie zurück.
 func (d *Deck) Draw() card.Card {
-	// TODO
-	return card.Card{}
+	c := d.Cards[0]
+	d.Cards = d.Cards[1:]
+	return c
 }
 
 // Gibt die oberste Karte des Decks zurück.
-func (d *Deck) Top() card.Card {
-	// TODO
-	return card.Card{}
+func (d Deck) Top() card.Card {
+	return d.Cards[0]
 }
 
 // Fügt eine Karte zum Deck hinzu.
 func (d *Deck) Add(c card.Card) {
-	// TODO
+	// Die neue Karte an Stelle 0
+	// einfügen und alle anderen um 1 verschieben.
+	d.Cards = append([]card.Card{c}, d.Cards...)
 }
 
 // Gibt die Anzahl der Karten im Deck zurück.
 func (d *Deck) Len() int {
-	// TODO
-	return 0
+	return len(d.Cards)
 }
