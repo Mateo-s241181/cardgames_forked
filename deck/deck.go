@@ -53,32 +53,55 @@ func NewDeck32() Deck {
 
 // Mischt das Deck.
 func (d *Deck) Shuffle() {
-	rand.Shuffle(len(d.Cards), func(i, j int) {
-		d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
-	})
+
+	//Kreiert ein neue cards Liste "Shuffled"
+
+	shuffled := []card.Card{}
+
+	//Wiederholen solange d.Cards noch Elemente enthält
+	for len(d.Cards) != 0 {
+
+		random := rand.Intn(len(d.Cards))
+		//Zieht eine random Karte aus d.Cards und appendet sie an "Shuffled"
+		shuffled = append(shuffled, d.Cards[random])
+
+		//Löscht die gezogene Karte aus d.Cards
+		d.Cards = append(d.Cards[:random], d.Cards[random+1:]...)
+
+		//Fortfahren bis d.Cards leer ist
+	}
+
+	//Am Ende d.Cards = "Shuffled"
+	d.Cards = shuffled
 }
 
 // Zieht eine Karte vom Deck.
 // D.h. entfernt die oberste Karte und gibt sie zurück.
 func (d *Deck) Draw() card.Card {
+
+	//Oberste Karte auslesen
 	c := d.Cards[0]
+
+	//Oberste Karte aus dem Deck entfernen
 	d.Cards = d.Cards[1:]
+
 	return c
 }
 
 // Gibt die oberste Karte des Decks zurück.
-func (d Deck) Top() card.Card {
+func (d *Deck) Top() card.Card {
+	//Gibt die Oberste Karte aus dem Deck zurück
 	return d.Cards[0]
 }
 
 // Fügt eine Karte zum Deck hinzu.
 func (d *Deck) Add(c card.Card) {
-	// Die neue Karte an Stelle 0
-	// einfügen und alle anderen um 1 verschieben.
+
 	d.Cards = append([]card.Card{c}, d.Cards...)
 }
 
 // Gibt die Anzahl der Karten im Deck zurück.
 func (d *Deck) Len() int {
+	//Gibt die Länge des Kartenslices im Deck zurück
 	return len(d.Cards)
 }

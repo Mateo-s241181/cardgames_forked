@@ -6,14 +6,14 @@ import (
 )
 
 type Card struct {
-	s Suit
-	r Rank
+	S Suit
+	R Rank
 }
 
 func New(r Rank, s Suit) Card {
 	return Card{
-		s: s,
-		r: r,
+		S: s,
+		R: r,
 	}
 }
 
@@ -40,7 +40,7 @@ func (c Card) String() string {
 	}
 
 	card_string_template := strings.Join(lines, "\n")
-	card_string := fmt.Sprintf(card_string_template, c.r, c.s, c.r)
+	card_string := fmt.Sprintf(card_string_template, c.R, c.S, c.R)
 	return card_string
 }
 
@@ -49,5 +49,15 @@ func (c Card) String() string {
 func (c Card) Matches(o Card) bool {
 	// Wenn Farbe oder Zahl gleich sind, passen die
 	// Karten zusammen
-	return c.r == o.r || c.s == o.s
+	return c.R == o.R || c.S == o.S
+}
+
+// GetRank gibt den Rang einer Karte zurück
+func GetRank(c Card) Rank {
+	return c.R
+}
+
+// GetSuit gibt den Suit einer Karte zurück
+func GetSuit(c Card) Suit {
+	return c.S
 }

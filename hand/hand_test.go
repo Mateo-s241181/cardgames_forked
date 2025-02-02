@@ -11,7 +11,7 @@ func ExampleHand_Add() {
 	h.Add(card.New(card.Eight, card.Clubs))
 	h.Add(card.New(card.King, card.Hearts))
 
-	fmt.Println(h)
+	fmt.Printf("%s", h.String())
 
 	// Output:
 	// ┌───────┐ ┌───────┐ ┌───────┐
