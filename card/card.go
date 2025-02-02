@@ -51,3 +51,11 @@ func (c Card) Matches(o Card) bool {
 	// Karten zusammen
 	return c.r == o.r || c.s == o.s
 }
+
+func GetRank(c Card) Rank {
+	return c.r
+}
+
+func GetSuit(c Card) Suit {
+	return c.s
+}
