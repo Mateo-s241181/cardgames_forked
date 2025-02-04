@@ -58,6 +58,12 @@ func (h Hand) String() string {
 	//Siebte Zeile
 	addStringNTimes(&s, "└───────┘ ", h)
 
+	s += "\n"
+
+	for i := range h.Cards {
+		s += fmt.Sprintf("   (%d)    ", i+1)
+	}
+
 	return s
 }
 
