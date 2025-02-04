@@ -51,6 +51,14 @@ func NewDeck32() Deck {
 	return Deck{Cards: cards}
 }
 
+// Funktion gibt ein leeres Deck zurück
+func NewEmptyDeck() Deck {
+
+	Empty := Deck{[]card.Card{}}
+
+	return Empty
+}
+
 // Mischt das Deck.
 func (d *Deck) Shuffle() {
 

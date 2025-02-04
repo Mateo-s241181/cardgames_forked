@@ -16,7 +16,7 @@ func NewBot(name string) *Bot {
 
 	return &Bot{
 		Name: name,
-		Hand: hand.New(),
+		Hand: hand.NewHand(),
 	}
 }
 

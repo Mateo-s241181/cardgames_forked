@@ -17,7 +17,7 @@ func NewHuman(name string) *Human {
 
 	return &Human{
 		Name: name,
-		Hand: hand.New(),
+		Hand: hand.NewHand(),
 	}
 }
 

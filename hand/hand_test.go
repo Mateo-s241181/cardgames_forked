@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleHand_Add() {
-	h := New()
+	h := NewHand()
 	h.Add(card.New(card.Seven, card.Diamonds))
 	h.Add(card.New(card.Eight, card.Clubs))
 	h.Add(card.New(card.King, card.Hearts))

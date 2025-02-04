@@ -1,6 +1,7 @@
 package game
 
 import (
+	"cardgames/card"
 	"cardgames/deck"
 	"cardgames/player"
 	"fmt"
@@ -8,7 +9,7 @@ import (
 
 //Start des Spiels:
 
-//Man Spielt mit 7 Karten
+//Man Spielt mit 3 Karten
 
 var NUMBER_OF_CARDS int = 3
 
@@ -41,9 +42,9 @@ func (g Game) PlayerCount() int {
 }
 
 // NewGame erwartet eine Anzahl von Spielern und gibt ein Objekt des Typs Game mit einem 32 Karten Deck und einer leeren Liste an Spielern der Länge p aus
-func NewGame(p int) *Game {
+func NewGame(p int) Game {
 
-	return &Game{
+	return Game{
 		Deck:    deck.NewDeck32(),
 		Players: make([]player.Player, p),
 	}
@@ -108,4 +109,39 @@ func (g *Game) DistributeCards() {
 
 //Spielerreihenfolge durch Reihenfolge in g.Players festgelegt
 
-//Ablagestapel als Deck definieren und anzeigen
+//Ablagestapel als Deck definieren (in Deck funktion)
+
+//------------------------------------------------------------------------------
+//(3) Ablauf eines Zuges
+//------------------------------------------------------------------------------
+
+//Auslesen der obersten Karte in Deck durch Top definiert
+//=> Oberste Karte muss auf den Ablagestapel gelegt werden
+
+// Ermitteln der Legalen Züge in Slice
+// Nimmt als Argument die oberste Karte und den Spieler der im Moment am Zug ist
+func (g Game) LegalMoves(c card.Card, n int) []int {
+
+	legal := []int{}
+
+	h := g.Players[n].GetHand().Cards
+
+	for i := range h {
+
+		if h[i].Matches(c) {
+			legal = append(legal, i+1)
+		}
+	}
+
+	return legal
+}
+
+//Spieler Abfragen
+
+//Zug ausführen => Karte auf Ablagestabe legen oder ziehen
+
+//-------------------------------------------------------------------------------
+//(4) Ende des Spiels
+//-------------------------------------------------------------------------------
+
+//Auslesen der Länge der Handarrays (definiert in Hand)

@@ -10,7 +10,7 @@ type Hand struct {
 }
 
 // New gibt eine leere Hand zurück.
-func New() Hand {
+func NewHand() Hand {
 	return Hand{}
 }
 
