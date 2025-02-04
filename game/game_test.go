@@ -17,7 +17,7 @@ func ExampleGame_PlayerCount() {
 	// Kann nicht getestet werden, da Funktion PlayerCount einen Input erwartet
 }
 
-func ExampleGame_NewGame() {
+func Example_NewGame() {
 
 	fmt.Println(NewGame(4))
 

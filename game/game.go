@@ -41,9 +41,9 @@ func (g Game) PlayerCount() int {
 }
 
 // NewGame erwartet eine Anzahl von Spielern und gibt ein Objekt des Typs Game mit einem 32 Karten Deck und einer leeren Liste an Spielern der Länge p aus
-func NewGame(p int) Game {
+func NewGame(p int) *Game {
 
-	return Game{
+	return &Game{
 		Deck:    deck.NewDeck32(),
 		Players: make([]player.Player, p),
 	}
