@@ -31,15 +31,38 @@ func (h Human) GetHand() hand.Hand {
 	return h.Hand
 }
 
-// GetMove fragt den Spieler nach einem Zug. Er gibt die Zahl unter der Karte an. Die Zahl die zurückgegeben wird ist die Position der Karte in seiner Hand
-func (h Human) GetMove() int {
+// GetMove fragt den Spieler nach einem Zug. Er gibt die Zahl unter der Karte an. Die Zahl die zurückgegeben wird ist die Position der Karte in seiner Hand, es wird geckecked ob der Move in n enthalten ist.
+func (h Human) GetMove(n []int) int {
 
-	var num int
+	var move int
 
-	fmt.Printf("%s, it´s your turn. Which Card do you want to play?", h.Name)
-	fmt.Scan(&num)
+	//Move einlesen
+	fmt.Printf("%s, it´s your turn. Which Card do you want to play?\nPress '0' to draw a Card\n", h.Name)
+	fmt.Scan(&move)
 
-	return num - 1
+	//Move in variable speichern und contains zunächst auf false setzen
+	contains := false
+
+	if move > len(h.GetHand().Cards) {
+		fmt.Println("Your move was out of bounds, try again.")
+		return h.GetMove(n)
+	}
+
+	//Checken ob move in l ist
+	for i := range n {
+
+		if move == n[i] {
+			contains = true
+		}
+	}
+
+	//Wenn Move nicht in Legalmoves drin ist, soll Funktion nochmal ausgeführt werden
+	if !contains && move != 0 {
+		fmt.Println("Your move was illegal, try again.")
+		return h.GetMove(n)
+	}
+
+	return move
 }
 
 // AddCard fügt der Hand des Spielers eine Karte hinzu

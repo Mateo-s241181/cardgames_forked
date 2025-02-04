@@ -14,7 +14,7 @@ type Player interface {
 	GetHand() hand.Hand
 
 	//GetMove liefert den Zug des Spielers als int
-	GetMove() int
+	GetMove(n []int) int
 
 	//AddCard fügt Karten zur Hand eines Spielers hinzu
 	AddCard(c card.Card)

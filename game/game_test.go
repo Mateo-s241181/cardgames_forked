@@ -8,9 +8,7 @@ import (
 
 func ExampleGame_PlayerCount() {
 
-	var g Game
-
-	p := g.PlayerCount()
+	p := PlayerCount()
 
 	fmt.Println(p)
 

@@ -94,6 +94,7 @@ func (h *Hand) Remove(c card.Card) {
 			} else {
 				h.Cards = h.Cards[:i]
 			}
+			break
 		}
 	}
 }

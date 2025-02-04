@@ -3,6 +3,7 @@ package player
 import (
 	"cardgames/card"
 	"cardgames/hand"
+	"math/rand"
 )
 
 // Bot definiert durch Namen und Hand
@@ -31,9 +32,13 @@ func (b Bot) GetHand() hand.Hand {
 }
 
 // GetMove gibt einen regelconformen Move zurück
-func (b Bot) GetMove() int {
+func (b Bot) GetMove(n []int) int {
 
-	return 0
+	if len(n) == 0 {
+		return 0
+	}
+
+	return rand.Intn(len(n)) + 1
 }
 
 // AddCard fügt der Hand des Spielers eine Karte hinzu

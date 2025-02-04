@@ -15,8 +15,9 @@ var NUMBER_OF_CARDS int = 3
 
 // Das Spiel wird Definiert durch ein Deck und eine Liste an Spielern
 type Game struct {
-	Deck    deck.Deck
-	Players []player.Player
+	Deck     deck.Deck
+	Friedhof deck.Deck
+	Players  []player.Player
 }
 
 //---------------------------------------------------------------------------------
@@ -24,7 +25,7 @@ type Game struct {
 //---------------------------------------------------------------------------------
 
 // Fragt nach Input die Anzahl der Spieler betreffend
-func (g Game) PlayerCount() int {
+func PlayerCount() int {
 
 	var playerCount int
 
@@ -35,7 +36,7 @@ func (g Game) PlayerCount() int {
 	//Falls Input nicht zwischen 2 und 4 liegt nochmal abfragen
 	if playerCount < 2 || playerCount > 4 {
 		fmt.Println("False Input")
-		return g.PlayerCount()
+		return PlayerCount()
 	}
 
 	return playerCount
@@ -45,8 +46,9 @@ func (g Game) PlayerCount() int {
 func NewGame(p int) Game {
 
 	return Game{
-		Deck:    deck.NewDeck32(),
-		Players: make([]player.Player, p),
+		Deck:     deck.NewDeck32(),
+		Friedhof: deck.NewEmptyDeck(),
+		Players:  make([]player.Player, p),
 	}
 }
 
@@ -111,6 +113,13 @@ func (g *Game) DistributeCards() {
 
 //Ablagestapel als Deck definieren (in Deck funktion)
 
+func (g *Game) FriedhofInit() {
+
+	top := g.Deck.Draw()
+
+	g.Friedhof.Add(top)
+}
+
 //------------------------------------------------------------------------------
 //(3) Ablauf eines Zuges
 //------------------------------------------------------------------------------
@@ -138,7 +147,26 @@ func (g Game) LegalMoves(c card.Card, n int) []int {
 
 //Spieler Abfragen
 
-//Zug ausführen => Karte auf Ablagestabe legen oder ziehen
+// Zug ausführen => Karte auf Ablagestabe legen oder ziehen
+// Input == Spieler, der an der Reihe ist
+func (g *Game) Move(move, playerNumber int) {
+
+	if move == 0 {
+		//Spieler zieht eine Karte vom Stapel
+		g.Players[playerNumber].AddCard(g.Deck.Draw())
+	}
+
+	//c ist die Karte, die der Spieler ablegen möchte
+	if move != 0 {
+		c := g.Players[playerNumber].GetHand().Cards[move-1]
+
+		//Karte wird an den Anfang des Ablagestapels gelegt, daher die Reihenfolge im append
+		g.Friedhof.Cards = append([]card.Card{c}, g.Friedhof.Cards...)
+
+		//Karte wird aus der Hand des Spielers entfernt
+		g.Players[playerNumber].RemoveCard(c)
+	}
+}
 
 //-------------------------------------------------------------------------------
 //(4) Ende des Spiels
